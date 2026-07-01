@@ -1,0 +1,220 @@
+:root {
+  --ivory: #f7f1e6;
+  --ivory-soft: #fffaf1;
+  --green: #12362f;
+  --green-soft: #dce7dd;
+  --navy: #14233b;
+  --navy-soft: #263b5f;
+  --ink: #17231f;
+  --muted: #56635d;
+  --line: #d7cebd;
+  --shadow: 0 18px 45px rgba(20, 35, 59, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(18, 54, 47, 0.08), rgba(247, 241, 230, 0) 18rem),
+    var(--ivory);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
+
+.page-shell {
+  width: min(100%, 860px);
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.hero {
+  padding: 46px 0 34px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  color: var(--navy);
+  font-size: clamp(2.45rem, 13vw, 4.7rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.role {
+  margin-bottom: 18px;
+  color: var(--green);
+  font-size: clamp(1.15rem, 5vw, 1.55rem);
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 1.05rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.lead {
+  max-width: 620px;
+  margin-bottom: 14px;
+  color: var(--navy);
+  font-size: clamp(1.2rem, 5vw, 1.65rem);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.intro {
+  max-width: 620px;
+  margin-bottom: 26px;
+  color: var(--muted);
+  font-size: 1.02rem;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(18, 54, 47, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.72);
+  color: var(--green);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  border-color: rgba(18, 54, 47, 0.48);
+  background: var(--ivory-soft);
+  transform: translateY(-1px);
+}
+
+.button:focus-visible {
+  outline: 3px solid rgba(38, 59, 95, 0.24);
+  outline-offset: 3px;
+}
+
+.button-primary {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--ivory-soft);
+}
+
+.button-primary:hover,
+.button-primary:focus-visible {
+  background: #0d2b25;
+}
+
+.button-muted {
+  color: var(--navy-soft);
+}
+
+.section {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.72);
+  box-shadow: var(--shadow);
+}
+
+.section p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.section-quiet {
+  background: rgba(220, 231, 221, 0.42);
+}
+
+.contact-list {
+  display: grid;
+  gap: 8px;
+}
+
+.contact-list p {
+  display: grid;
+  gap: 2px;
+}
+
+.contact-list span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.contact-list a {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration-color: rgba(20, 35, 59, 0.28);
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 640px) {
+  .page-shell {
+    padding: 54px 32px 70px;
+  }
+
+  .hero {
+    padding-top: 68px;
+  }
+
+  .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 620px;
+  }
+
+  .section {
+    padding: 28px;
+  }
+
+  .contact-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .page-shell {
+    padding-top: 72px;
+  }
+
+  .hero {
+    padding-bottom: 44px;
+  }
+}
