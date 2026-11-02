@@ -103,6 +103,11 @@ body[data-chapter=headliners] .site-header,body[data-chapter=world] .site-header
 
 /* Font-independent decorative northeast arrows */
 .arrow-icon{display:inline-block;width:1em;height:1em;vertical-align:-.1em;flex:none}
+
+/* Protect the transparent header during future-section scroll */
+.chapter-mode .future{scroll-padding-top:112px}
+.chapter-mode .future::before{content:"";position:fixed;inset:0 0 auto;height:110px;z-index:4;pointer-events:none;background:linear-gradient(to bottom,#f4f0e6 0%,#f4f0e6 78%,transparent 100%)}
+body.night.chapter-mode .future::before{background:linear-gradient(to bottom,#172a28 0%,#172a28 78%,transparent 100%)}
 </style><!-- Copyright 2018 The Manrope Project Authors (https://github.com/googlefonts/manrope)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
