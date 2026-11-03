@@ -136,6 +136,12 @@ body.night.chapter-mode .future::before{background:linear-gradient(to bottom,#17
  .demo-header .project-view-switch button{font-size:13px}
 }
 @media (max-width:600px){
+ .opening .chapter-inner,.chapter-mode .opening .chapter-inner{grid-template-rows:auto auto 1fr}
+ .opening h1,.chapter-mode .opening h1{font-size:clamp(31px,9vw,50px)}
+ .opening h1 .typed-line{white-space:normal}
+ .opening .hero-first{flex-wrap:wrap}
+ .opening .hero-first #hero-verb{min-width:0;overflow-wrap:anywhere}
+ .opening #hero-typed{display:inline;overflow-wrap:anywhere}
  .headliner-grid{grid-template-columns:1fr}
  .headliner-grid .card-bottom{min-height:0}
  .headliner-grid .card-bottom h3{font-size:20px}
