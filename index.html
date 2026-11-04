@@ -111,7 +111,7 @@ body.night.chapter-mode .future::before{background:linear-gradient(to bottom,#17
 
 /* Phone layouts keep the workshop scrollable and controls comfortable to tap. */
 @media (max-width:760px), (max-width:1100px) and (max-height:500px){
- .opening .chapter-inner,.chapter-mode .opening .chapter-inner{height:auto;min-height:100svh;padding-top:clamp(100px,16svh,135px);padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+ .opening .chapter-inner,.chapter-mode .opening .chapter-inner{height:auto;min-height:100svh;grid-template-rows:auto auto 1fr;padding-top:clamp(100px,16svh,135px);padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
  .site-header{padding-top:max(8px,env(safe-area-inset-top,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
  .site-header a,.site-header button{display:inline-flex;align-items:center;min-height:44px}
  .site-header>div{gap:8px}
@@ -141,6 +141,11 @@ body.night.chapter-mode .future::before{background:linear-gradient(to bottom,#17
  .headliner-grid .card-bottom h3{font-size:20px}
  .headliner-grid .card-bottom .card-explanation{font-size:13px;line-height:1.55}
  .headliner-grid .scene-cover{height:120px}
+}
+@media(max-width:370px){
+ .site-header a,.site-header button{white-space:nowrap}
+ .site-header>div{gap:4px}
+ .site-header a span,.site-header button span{margin-left:3px}
 }
 </style><!-- Copyright 2018 The Manrope Project Authors (https://github.com/googlefonts/manrope)
 
