@@ -1,25 +1,24 @@
-# Spencer Colety Landing Page
+# Spencer Colety’s Software Engineering Portfolio
 
-Bare-minimum static landing page for `spencercolety.com` and the business-card QR route at `spencercolety.com/card`.
+[Live portfolio](https://spencercolety.com/) · [Business card](https://spencercolety.com/card/)
 
-## Files
+This repository serves my portfolio and its interactive project samples on GitHub Pages. The portfolio includes restaurant operations, developer tooling, fantasy sports analytics, and computer science coursework.
 
-- `index.html` serves `/`
-- `card/index.html` serves `/card`
-- `styles.css` contains the shared visual design
-- `favicon.svg` provides the small browser icon
-- `CNAME` points GitHub Pages at `spencercolety.com`
+## Run locally
 
-## Edit Later
+From the repository root, start a static server with Python:
 
-The page content is plain HTML. Update the text, contact links, or LinkedIn placeholder directly in both `index.html` and `card/index.html`.
-
-Current placeholder:
-
-```html
-https://www.linkedin.com/in/spencercolety/
+```sh
+python -m http.server 8000
 ```
 
-## Deploy
+Open `http://localhost:8000/` for the portfolio or `http://localhost:8000/card/` for the mobile business card.
 
-Upload the folder to any static host. Make sure the host preserves folder index routing so `/card` serves `card/index.html`.
+## Repository layout
+
+- `index.html` contains the portfolio, project data, and interactive samples.
+- `card/index.html` serves the mobile business card.
+- `styles.css` contains site styles.
+- `CNAME` configures the public GitHub Pages domain.
+
+The interactive samples use invented data. The public portfolio describes which projects are deployed, in development, or demonstrations.
