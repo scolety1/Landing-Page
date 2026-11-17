@@ -31,6 +31,7 @@ assert.match(cardHtml, /spencer@coletylabs\.com/);
 assert.match(cardHtml, /linkedin\.com\/in\/spencer-colety-a64b66280/);
 assert.match(cardHtml, /github\.com\/scolety1/);
 assert.match(cardHtml, /card-deck\.js/);
+assert.doesNotMatch(cardHtml, /CardDeck\.init\(\)/, 'card deck should initialize exactly once through the external controller');
 
 assert.equal(cardDeck.gestureDirection(0, 28), 0);
 assert.equal(cardDeck.gestureDirection(27, 28), 0);
@@ -43,4 +44,4 @@ assert.equal(cardDeck.nextPanel(2, 40, 7, 28), 3, 'small down intent should adva
 assert.equal(cardDeck.nextPanel(2, -40, 7, 28), 1, 'small up intent should reverse one panel');
 assert.equal(cardDeck.nextPanel(2, 8, 7, 28), 2, 'sub-threshold movement should not advance');
 
-console.log('mobile/card refresh: 31 assertions passed');
+console.log('mobile/card refresh: 32 assertions passed');
