@@ -23,6 +23,7 @@ assert.deepEqual(panelIds, ['hello', 'work', 'about', 'development', 'more-work'
 assert.doesNotMatch(cardHtml, /THE SHORT VERSION|class="edition"|class="bottom-bar"|class="section-nav"|id="scroll-mode"/);
 assert.match(cardHtml, /noindex,nofollow/);
 assert.match(cardHtml, /spencer-colety-software-engineer-headshot-blue\.png/);
+assert.match(cardHtml, /\.portrait-row img\{[^}]*width:112px;[^}]*height:112px/, 'portrait should stay square before circular cropping');
 assert.match(cardHtml, /Frame[\s\S]*Direct[\s\S]*Review[\s\S]*Verify/);
 assert.match(cardHtml, /24 project records/i);
 assert.match(cardHtml, /World Forge[\s\S]*In development[\s\S]*true freedom/i);
@@ -42,4 +43,4 @@ assert.equal(cardDeck.nextPanel(2, 40, 7, 28), 3, 'small down intent should adva
 assert.equal(cardDeck.nextPanel(2, -40, 7, 28), 1, 'small up intent should reverse one panel');
 assert.equal(cardDeck.nextPanel(2, 8, 7, 28), 2, 'sub-threshold movement should not advance');
 
-console.log('mobile/card refresh: 30 assertions passed');
+console.log('mobile/card refresh: 31 assertions passed');
