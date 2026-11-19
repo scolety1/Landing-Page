@@ -5,10 +5,10 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  function autoGuided(width, height) {
+  function autoGuided(width, height, coarsePointer = false) {
     const desktop = width >= 900 && height >= 620;
     const portraitPhone = width <= 760 && height >= 560 && height > width;
-    return desktop || portraitPhone;
+    return desktop || (portraitPhone && coarsePointer);
   }
 
   function swipeThreshold(width) {

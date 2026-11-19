@@ -9,7 +9,9 @@ const cardHtml = fs.readFileSync(path.join(root, 'card', 'index.html'), 'utf8');
 const guidance = require(path.join(root, 'assets', 'mobile-guidance.js'));
 const cardDeck = require(path.join(root, 'card', 'card-deck.js'));
 
-assert.equal(guidance.autoGuided(390, 844), true, 'portrait phone should start in chapter mode');
+assert.equal(guidance.autoGuided(390, 844, true), true, 'portrait phone should start in chapter mode');
+assert.equal(guidance.autoGuided(638, 904, false), false, 'narrow desktop window should retain continuous scrolling');
+assert.equal(guidance.autoGuided(638, 904, true), true, 'phone-shaped coarse-pointer viewport should retain chapter mode');
 assert.equal(guidance.autoGuided(844, 390), false, 'short landscape phone should use continuous scrolling');
 assert.equal(guidance.autoGuided(1180, 757), true, 'desktop should retain chapter mode');
 assert.equal(guidance.autoGuided(800, 700), false, 'mid-size non-phone viewport should retain continuous scrolling');
@@ -44,4 +46,4 @@ assert.equal(cardDeck.nextPanel(2, 40, 7, 28), 3, 'small down intent should adva
 assert.equal(cardDeck.nextPanel(2, -40, 7, 28), 1, 'small up intent should reverse one panel');
 assert.equal(cardDeck.nextPanel(2, 8, 7, 28), 2, 'sub-threshold movement should not advance');
 
-console.log('mobile/card refresh: 32 assertions passed');
+console.log('mobile/card refresh: 34 assertions passed');
