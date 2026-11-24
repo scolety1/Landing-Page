@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const assetName = 'spencer-colety-sc-favicon-master.png';
+const assetName = 'spencer-colety-sc-favicon-paper.png';
 const assetPath = path.join(root, 'assets', assetName);
 const homepage = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const card = fs.readFileSync(path.join(root, 'card', 'index.html'), 'utf8');
