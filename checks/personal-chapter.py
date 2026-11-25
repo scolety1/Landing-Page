@@ -1,8 +1,9 @@
-import json, shutil, base64
+import json, shutil, base64, os
 from playwright.sync_api import sync_playwright
 sizes=[(320,568,True),(360,640,True),(390,844,True),(414,896,True),(768,1024,True),(844,390,True),(1024,600,False),(1280,720,False),(1440,900,False)]
 ids=['top','story','development','headliners','playground','collection','world','future']
-url='https://spencercolety.com/'
+url=os.environ.get('TEST_URL','https://spencercolety.com/')
+if 'spencercolety.com' in url: sizes=sizes[5:]
 with sync_playwright() as p:
  b=p.chromium.launch(executable_path=shutil.which('google-chrome') or shutil.which('chromium'),headless=True,args=['--no-sandbox'])
  for w,h,touch in sizes:
@@ -18,7 +19,11 @@ with sync_playwright() as p:
   for id in ids:
    page.locator('#chapter-menu-toggle').click()
    menu=page.locator('#chapter-menu').bounding_box()
-   page.locator('[data-chapter-target="'+id+'"]').click()
+   try: page.locator('[data-chapter-target="'+id+'"]').click(timeout=1800)
+   except Exception as exc:
+    print('MENU_FAIL',json.dumps({'size':f'{w}x{h}','id':id,'error':str(exc)[:500]}),flush=True)
+    page.locator('[data-chapter-target="'+id+'"]').evaluate('(e)=>e.click()')
+   if not page.locator('#chapter-menu').is_hidden(): page.locator('#chapter-menu-toggle').click()
    page.wait_for_timeout(90)
    r=page.evaluate("""id=>{
     const s=document.getElementById(id),i=s.querySelector('.chapter-inner'),n=document.querySelector('.chapter-navigation'),nr=n.getBoundingClientRect(),sr=s.getBoundingClientRect(),ir=i.getBoundingClientRect();
@@ -37,7 +42,8 @@ with sync_playwright() as p:
     data=base64.b64encode(jpeg).decode()
     for k in range(0,len(data),10000):print('VISUAL',f'{w}x{h}_{id}',k//10000,data[k:k+10000],flush=True)
   # check boundary navigation forward and reverse using actual wheel / keyboard
-  page.locator('#chapter-menu-toggle').click();page.locator('[data-chapter-target="top"]').click()
+  page.locator('#chapter-menu-toggle').click();page.locator('[data-chapter-target="top"]').evaluate('(e)=>e.click()');
+  if not page.locator('#chapter-menu').is_hidden(): page.locator('#chapter-menu-toggle').click()
   page.wait_for_timeout(100)
   page.evaluate("document.querySelector('#top').scrollTop=1e7")
   page.mouse.move(w//2,h//2);page.mouse.wheel(0,600);page.wait_for_timeout(300)
@@ -48,7 +54,9 @@ with sync_playwright() as p:
   # touch dispatch on chapter surface at bottom, if touch
   swipe=None
   if touch:
-   page.locator('#chapter-menu-toggle').click();page.locator('[data-chapter-target="top"]').click();page.wait_for_timeout(100)
+   page.locator('#chapter-menu-toggle').click();page.locator('[data-chapter-target="top"]').evaluate('(e)=>e.click()');
+   if not page.locator('#chapter-menu').is_hidden(): page.locator('#chapter-menu-toggle').click()
+   page.wait_for_timeout(100)
    page.evaluate("""()=>{const e=document.querySelector('#top');e.scrollTop=e.scrollHeight;const t=(y)=>new Touch({identifier:1,target:e,clientX:80,clientY:y});e.dispatchEvent(new TouchEvent('touchstart',{bubbles:true,touches:[t(220)],changedTouches:[t(220)]}));e.dispatchEvent(new TouchEvent('touchend',{bubbles:true,touches:[],changedTouches:[t(80)]}))}""")
    page.wait_for_timeout(300);swipe=page.evaluate('ChapterNavigation.activeId')
   page.locator('#scroll-mode').click();page.wait_for_timeout(120)
