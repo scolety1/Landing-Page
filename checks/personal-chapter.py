@@ -42,6 +42,13 @@ with sync_playwright() as p:
     jpeg=page.screenshot(type='jpeg',quality=40,animations='disabled')
     data=base64.b64encode(jpeg).decode()
     for k in range(0,len(data),10000):print('VISUAL',f'{w}x{h}_{id}',k//10000,data[k:k+10000],flush=True)
+  # Verify every inter-chapter edge without manually scrolling to a chapter boundary.
+  for idx,id in enumerate(ids[:-1]):
+   page.evaluate("(id)=>ChapterNavigation.selectId(id,{instant:true})",id)
+   page.wait_for_timeout(80)
+   page.mouse.move(w//2,h//2);page.mouse.wheel(0,500);page.wait_for_timeout(220)
+   got=page.evaluate("ChapterNavigation.activeId")
+   if got!=ids[idx+1]: failures.append((f'{w}x{h}',id,'wheel to next',got))
   # check boundary navigation forward and reverse using actual wheel / keyboard
   page.locator('#chapter-menu-toggle').click();page.locator('[data-chapter-target="top"]').evaluate('(e)=>e.click()');
   if not page.locator('#chapter-menu').is_hidden(): page.locator('#chapter-menu-toggle').click()
@@ -64,6 +71,15 @@ with sync_playwright() as p:
   continuous=page.evaluate("({guided:ChapterNavigation.guided,overflow:document.documentElement.scrollWidth-innerWidth})")
   print('INPUT',json.dumps({'size':f'{w}x{h}','wheelForward':forward,'wheelBack':backward,'swipe':swipe,'continuous':continuous,'errors':errors}),flush=True)
   if forward!='story' or backward!='top' or (touch and swipe!='story') or continuous['guided'] or errors: failures.append((f'{w}x{h}','input',forward,backward,swipe,errors))
+  # Resize a desktop-sized chapter while guided mode is explicitly selected.
+  if w==1440:
+   if not page.evaluate('ChapterNavigation.guided'): page.locator('#scroll-mode').click()
+   page.evaluate("ChapterNavigation.selectId('development',{instant:true})")
+   page.set_viewport_size({'width':390,'height':568})
+   page.wait_for_timeout(200)
+   resize=page.evaluate("""()=>{const c=document.querySelector('.chapter-active');return {guided:ChapterNavigation.guided,id:c.id,scroll:c.scrollHeight-c.clientHeight,overflow:c.scrollWidth-c.clientWidth}}""")
+   print('RESIZE',json.dumps(resize),flush=True)
+   if not resize['guided'] or resize['id']!='development' or resize['scroll']>2 or resize['overflow']>2: failures.append(('resize',resize))
   page.close()
  b.close()
 print('FINAL',json.dumps(failures),flush=True)
