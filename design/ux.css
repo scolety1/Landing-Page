@@ -47,9 +47,27 @@
 .chapter-mode .chapter.fit-tight .development-step,.chapter-mode .chapter.fit-tight .development-step.recovery{padding:6px 10px}
 .chapter-mode .chapter.fit-tight .development-step h3{font-size:15px;margin:2px 0}
 .chapter-mode .chapter.fit-tight .development-links a{min-height:26px}
-.chapter-mode .chapter.fit-tight .playground .featured-experiment{display:block;padding:6px 10px}
-.chapter-mode .chapter.fit-tight .playground-links{margin-top:4px;padding-top:4px;gap:5px}
+.chapter-mode .playground.fit-tight .featured-experiment{display:block;padding:6px 10px}
+.chapter-mode .playground.fit-tight .playground-links{margin-top:4px;padding-top:4px;gap:5px}
 .chapter-mode .chapter.fit-tight .story-voice .chapter-brief{font-size:13px;line-height:1.35}
 .chapter-mode .chapter.fit-tight .future-layout p.chapter-brief{font-size:13px;line-height:1.35}
 }
 @media(max-width:600px) and (max-height:520px){.chapter-mode .ux-work .ux-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chapter-mode .ux-work .ux-foot{display:none}.chapter-mode .ux-work .ux-heading h2{font-size:24px}.chapter-mode .ux-work .ux-heading h2 br{display:none}.chapter-mode .ux-work .ux-heading h2 em{margin-left:.15em}.chapter-mode .development-path{grid-template-columns:1fr}.chapter-mode .development-step,.chapter-mode .development-step.recovery{padding:6px 10px}.chapter-mode .development-step h3{font-size:15px;margin:2px 0}.chapter-mode .development-links a{min-height:24px}.chapter-mode .development-principle{margin-top:4px}}
+
+@media(max-height:520px){
+.chapter-mode .development.fit-tight .chapter-inner{padding-top:58px;padding-bottom:64px}
+.chapter-mode .development.fit-tight h2{font-size:24px;line-height:1.04}
+.chapter-mode .development.fit-tight .development-intro{margin-bottom:5px}
+.chapter-mode .development.fit-tight .development-step,.chapter-mode .development.fit-tight .development-step.recovery{padding:5px 10px}
+.chapter-mode .development.fit-tight .development-step h3{font-size:15px;line-height:1.1;margin:2px 0}
+.chapter-mode .development.fit-tight .development-links{gap:2px 10px;margin-top:0}
+.chapter-mode .development.fit-tight .development-links a{min-height:24px;padding:2px 0}
+.chapter-mode .development.fit-tight .development-principle{display:none}
+.chapter-mode .playground.fit-tight .chapter-inner{padding:54px max(5vw,16px) 60px}
+.chapter-mode .playground.fit-tight .section-heading{margin-bottom:3px}
+.chapter-mode .playground.fit-tight .featured-experiment{padding:3px 0;gap:0;display:block}
+.chapter-mode .playground.fit-tight .featured-experiment h3{font-size:20px;margin:3px 0;line-height:1.1}
+.chapter-mode .playground.fit-tight .featured-experiment p{display:none}
+.chapter-mode .playground.fit-tight .playground-links{margin-top:2px;padding-top:3px;gap:5px}
+.chapter-mode .playground.fit-tight .playground-links button,.chapter-mode .playground.fit-tight .playground-links a{min-height:34px;padding-block:4px}
+}
