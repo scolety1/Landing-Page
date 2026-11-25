@@ -66,7 +66,7 @@ with sync_playwright() as p:
     if page.evaluate('ChapterNavigation.activeId')!='headliners':failures.append((w,h,'native swipe UX',page.evaluate('ChapterNavigation.activeId')))
    page.evaluate("ChapterNavigation.selectId('development',{instant:true})")
    page.set_viewport_size({'width':w,'height':h-50});page.wait_for_timeout(150)
-   r=page.evaluate("()=>{let c=document.querySelector('.chapter-active');return {id:c.id,scroll:c.scrollHeight-c.clientHeight,fit:c.classList.contains('fit-ready')}}")
+   r=page.evaluate("()=>{let c=document.querySelector('.chapter-active');return {id:c.id,scroll:c.scrollHeight-c.clientHeight,fit:c.classList.contains('fit-ready'),bounds:(()=>{let i=c.querySelector('.chapter-inner'),r=i.getBoundingClientRect(),st=getComputedStyle(i);return {top:Math.round(r.top+parseFloat(st.paddingTop)),bottom:Math.round(r.bottom-parseFloat(st.paddingBottom)),header:Math.round(document.querySelector('.site-header').getBoundingClientRect().bottom),nav:Math.round(document.querySelector('.chapter-navigation').getBoundingClientRect().top)}})()}}")
    print('CHROME_RESIZE',w,h,json.dumps(r),flush=True)
    if r['scroll']>2 or not r['fit']:failures.append((w,h,'chrome resize',r))
   page.close()
