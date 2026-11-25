@@ -45,3 +45,26 @@ with sync_playwright() as p:
     failures=[r for r in report if r['overflow']>1 or r['http']!=200 or r['errors'] or r['broken'] or r.get('missingAnchors') or (r['route']=='/design/' and (r.get('comparisonImages')!=4 or r.get('keyCards')!=4))]
     print('SUMMARY',json.dumps({'checks':len(report),'failures':failures}),flush=True)
     assert not failures, 'Responsive QA failures; see summary'
+
+
+# Visual samples and anonymous access check; no credentials or private data.
+import base64
+with sync_playwright() as p:
+    browser=p.chromium.launch(executable_path=shutil.which('google-chrome') or shutil.which('chromium'),headless=True,args=['--no-sandbox'])
+    for width,height,route,anchor,label in [(320,568,'/',None,'home320'),(390,844,'/design/',None,'design390'),(768,1024,'/design/','#key-projects','projects768'),(1024,600,'/',None,'home1024'),(390,844,'/design/','#easylife','easylife390')]:
+        page=browser.new_page(viewport={'width':width,'height':height},reduced_motion='reduce')
+        page.goto('http://127.0.0.1:8765'+route,wait_until='load')
+        if anchor: page.locator(anchor).evaluate("(e)=>e.scrollIntoView({block:'start'})")
+        page.wait_for_timeout(200)
+        jpeg=page.screenshot(type='jpeg',quality=42,animations='disabled')
+        data=base64.b64encode(jpeg).decode('ascii')
+        for i in range(0,len(data),10000): print('VISUAL '+label+' '+str(i//10000)+' '+data[i:i+10000],flush=True)
+        page.close()
+    for route in ['/','/design/']:
+        page=browser.new_page(viewport={'width':390,'height':844})
+        try:
+            resp=page.goto('https://spencer-ux-design-portfolio.vercel.app'+route,wait_until='domcontentloaded',timeout=15000)
+            print('PUBLIC_ACCESS',json.dumps({'route':route,'status':resp.status,'title':page.title(),'url':page.url,'expected':('Spencer Colety' in page.title()),'login':('vercel.com/login' in page.url)}),flush=True)
+        except Exception as e: print('PUBLIC_ACCESS',json.dumps({'route':route,'error':str(e)}),flush=True)
+        page.close()
+    browser.close()
