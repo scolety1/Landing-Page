@@ -5,3 +5,51 @@
 @media(max-width:600px){#ux-dialog{width:100%;max-width:100%;max-height:100dvh;height:100dvh;border-radius:0;margin:0}.ux-dialog-bar{padding:8px 16px}.ux-dialog-bar span{font-size:9px}.ux-case{padding:18px 16px 28px}.ux-facts,.ux-compare{grid-template-columns:1fr}.ux-case-visual{gap:10px;padding:12px}.ux-case-visual p{font-size:12px}.ux-phone{padding:9px}.ux-card strong{font-size:16px}.ux-kicker{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.ux-card{transition:none}.ux-card:hover{transform:none}}
 @media(min-width:900px) and (max-height:760px){.chapter-mode .ux-work .ux-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.chapter-mode .ux-work .ux-heading{display:flex;align-items:end}.chapter-mode .ux-work .ux-heading p{max-width:320px}.chapter-mode .ux-work .ux-thumb{height:clamp(48px,11vh,82px)}}
+
+/* Mobile browser chrome can reduce the viewport well below the device's advertised screen height. */
+@media(max-width:600px) and (max-height:760px){
+.chapter-mode .development .chapter-inner{padding-top:70px;padding-bottom:70px}
+.chapter-mode .development-step,.chapter-mode .development-step.recovery{padding:9px 12px}
+.chapter-mode .development-step p{font-size:12px;line-height:1.35}
+.chapter-mode .development-step h3{margin:4px 0;font-size:16px}
+.chapter-mode .development-number{font-size:9px}
+.chapter-mode .development-links{margin-top:2px}
+.chapter-mode .development-principle{font-size:11px;line-height:1.4;margin-top:8px}
+.chapter-mode .development-principle strong{font-size:12px}
+.chapter-mode .work .scene-cover{height:clamp(30px,6vh,48px)}
+.chapter-mode .work .project-preview{padding:10px;gap:5px}
+.chapter-mode .ux-work .ux-thumb{display:none}
+.chapter-mode .ux-work .ux-desc{display:none}
+}
+@media(max-width:600px) and (max-height:710px){
+.chapter-mode .development-step p{display:none}
+.chapter-mode .work .scene-cover{display:none}
+.chapter-mode .playground .snow-cover{display:none}
+.chapter-mode .ux-work .ux-inner{padding-top:70px;padding-bottom:70px}
+}
+@media(max-width:900px),(max-height:760px){
+.chapter-mode .chapter.fit-compact .chapter-inner,.chapter-mode .chapter.fit-tight .chapter-inner{padding-top:clamp(60px,9vh,75px);padding-bottom:clamp(65px,9vh,75px)}
+.chapter-mode .chapter.fit-compact .chapter-label{margin-bottom:5px}
+.chapter-mode .chapter.fit-compact .section-heading{margin-bottom:8px}
+.chapter-mode .chapter.fit-compact h2{font-size:clamp(25px,4vw,37px)}
+.chapter-mode .chapter.fit-compact .ux-thumb,.chapter-mode .chapter.fit-compact .ux-desc,.chapter-mode .chapter.fit-compact .scene-cover,.chapter-mode .chapter.fit-compact .snow-cover{display:none}
+.chapter-mode .chapter.fit-compact .development-step p,.chapter-mode .chapter.fit-compact .development-lede{display:none}
+.chapter-mode .chapter.fit-compact .development-step,.chapter-mode .chapter.fit-compact .development-step.recovery{padding:8px 10px}
+.chapter-mode .chapter.fit-compact .development-principle{margin-top:5px}
+.chapter-mode .chapter.fit-compact .world-art{max-height:100px}
+.chapter-mode .chapter.fit-compact .portrait-photo{width:64px}
+.chapter-mode .chapter.fit-compact .portfolio-entrance,.chapter-mode .chapter.fit-compact .future footer{display:none}
+.chapter-mode .chapter.fit-tight .ux-foot,.chapter-mode .chapter.fit-tight .section-heading>p,.chapter-mode .chapter.fit-tight .world-window,.chapter-mode .chapter.fit-tight .portrait-photo{display:none}
+.chapter-mode .chapter.fit-tight .ux-card{padding:8px;gap:3px}
+.chapter-mode .chapter.fit-tight .ux-heading p{font-size:11px}
+.chapter-mode .chapter.fit-tight .ux-heading{margin-bottom:7px}
+.chapter-mode .chapter.fit-tight .development-path{gap:4px}
+.chapter-mode .chapter.fit-tight .development-step,.chapter-mode .chapter.fit-tight .development-step.recovery{padding:6px 10px}
+.chapter-mode .chapter.fit-tight .development-step h3{font-size:15px;margin:2px 0}
+.chapter-mode .chapter.fit-tight .development-links a{min-height:26px}
+.chapter-mode .chapter.fit-tight .playground .featured-experiment{display:block;padding:6px 10px}
+.chapter-mode .chapter.fit-tight .playground-links{margin-top:4px;padding-top:4px;gap:5px}
+.chapter-mode .chapter.fit-tight .story-voice .chapter-brief{font-size:13px;line-height:1.35}
+.chapter-mode .chapter.fit-tight .future-layout p.chapter-brief{font-size:13px;line-height:1.35}
+}
+@media(max-width:600px) and (max-height:520px){.chapter-mode .ux-work .ux-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chapter-mode .ux-work .ux-foot{display:none}.chapter-mode .ux-work .ux-heading h2{font-size:24px}.chapter-mode .ux-work .ux-heading h2 br{display:none}.chapter-mode .ux-work .ux-heading h2 em{margin-left:.15em}.chapter-mode .development-path{grid-template-columns:1fr}.chapter-mode .development-step,.chapter-mode .development-step.recovery{padding:6px 10px}.chapter-mode .development-step h3{font-size:15px;margin:2px 0}.chapter-mode .development-links a{min-height:24px}.chapter-mode .development-principle{margin-top:4px}}
