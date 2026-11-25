@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 sizes=[(320,568,True),(360,640,True),(390,844,True),(414,896,True),(768,1024,True),(844,390,True),(1024,600,False),(1280,720,False),(1440,900,False)]
 ids=['top','story','development','headliners','playground','collection','world','future']
 url=os.environ.get('TEST_URL','https://spencercolety.com/')
-if 'spencercolety.com' in url: sizes=sizes[5:]
+failures=[]
 with sync_playwright() as p:
  b=p.chromium.launch(executable_path=shutil.which('google-chrome') or shutil.which('chromium'),headless=True,args=['--no-sandbox'])
  for w,h,touch in sizes:
@@ -21,7 +21,7 @@ with sync_playwright() as p:
    menu=page.locator('#chapter-menu').bounding_box()
    try: page.locator('[data-chapter-target="'+id+'"]').click(timeout=1800)
    except Exception as exc:
-    print('MENU_FAIL',json.dumps({'size':f'{w}x{h}','id':id,'error':str(exc)[:500]}),flush=True)
+    failures.append((f'{w}x{h}',id,'menu click'));print('MENU_FAIL',json.dumps({'size':f'{w}x{h}','id':id,'error':str(exc)[:500]}),flush=True)
     page.locator('[data-chapter-target="'+id+'"]').evaluate('(e)=>e.click()')
    if not page.locator('#chapter-menu').is_hidden(): page.locator('#chapter-menu-toggle').click()
    page.wait_for_timeout(90)
@@ -37,6 +37,7 @@ with sync_playwright() as p:
    }""",id)
    r.update(size=f'{w}x{h}',menuFits=bool(menu and menu['y']>=-1 and menu['x']>=-1 and menu['x']+menu['width']<=w+1))
    print('CHAPTER',json.dumps(r),flush=True)
+   if r['scroll']>2 or r['overflow']>2 or r['bodyOverflow']>2 or r['clipped'] or r['bottom'] or r['below'] or not r['menuFits'] or r['active']!=id or not r['visible']: failures.append((f'{w}x{h}',id,{k:r[k] for k in ['scroll','overflow','clipped','bottom','below','menuFits']}))
    if (w,h,id) in [(320,568,'collection'),(320,568,'development'),(390,844,'story'),(390,844,'headliners'),(844,390,'collection'),(1024,600,'collection'),(1024,600,'headliners'),(1440,900,'collection')]:
     jpeg=page.screenshot(type='jpeg',quality=40,animations='disabled')
     data=base64.b64encode(jpeg).decode()
@@ -62,5 +63,8 @@ with sync_playwright() as p:
   page.locator('#scroll-mode').click();page.wait_for_timeout(120)
   continuous=page.evaluate("({guided:ChapterNavigation.guided,overflow:document.documentElement.scrollWidth-innerWidth})")
   print('INPUT',json.dumps({'size':f'{w}x{h}','wheelForward':forward,'wheelBack':backward,'swipe':swipe,'continuous':continuous,'errors':errors}),flush=True)
+  if forward!='story' or backward!='top' or (touch and swipe!='story') or continuous['guided'] or errors: failures.append((f'{w}x{h}','input',forward,backward,swipe,errors))
   page.close()
  b.close()
+print('FINAL',json.dumps(failures),flush=True)
+assert not failures, failures
