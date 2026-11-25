@@ -1,0 +1,19 @@
+name: Integrated class portfolio QA
+on:
+  push:
+    branches: [class-portfolio-integrated-qa]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Responsive and interactive checks
+        run: |
+          python -m pip install playwright==1.51.0
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/class-http.log 2>&1 &
+          python checks/integrated-class.py
